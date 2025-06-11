@@ -1,12 +1,18 @@
+<script setup lang="ts">
+
+</script>
+
 <template>
+  <Navbar />
   <div>
-    <div>
-      <RouterLink :to="{ name: 'login' }">Login</RouterLink> | 
-      <RouterLink :to="{ name: 'register' }">Register</RouterLink> | 
-      <RouterLink :to="{ name: 'reset-password' }">Reset password</RouterLink> | 
-      <RouterLink :to="{ name: 'events' }">Events</RouterLink> | 
-      <RouterLink :to="{ name: 'helpdesk' }">Help Desk</RouterLink>
-    </div>
     <RouterView />
   </div>
 </template>
+
+<script setup>
+  import Navbar from './components/layout/Navbar.vue';
+</script>
+
+<style>
+  @import 'bulma/css/bulma.min.css';
+</style>
