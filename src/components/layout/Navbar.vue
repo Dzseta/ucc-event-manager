@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
+    <nav class="navbar is-warning px-4" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <RouterLink :to="{ name: 'events' }" class="navbar-item is-size-4 is-family-monospace">
                 <strong>Event Manager</strong>
