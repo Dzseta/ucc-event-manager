@@ -1,3 +1,4 @@
+import EditEventView from '@/views/EditEventView.vue';
 import EventsView from '@/views/EventsView.vue';
 import HelpDeskView from '@/views/HelpDeskView.vue';
 import LoginView from '@/views/LoginView.vue';
@@ -26,6 +27,11 @@ const routes = [
     path: '/events',
     component: EventsView,
     name: 'events'
+  },
+  {
+    path: '/edit-event/:id',
+    component: EditEventView,
+    name: 'edit-event'
   },
   {
     path: '/helpdesk',
