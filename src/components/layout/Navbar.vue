@@ -21,16 +21,16 @@
 
         <div id="navbarTop" :class="{ 'is-active': showNavBarMenu }" class="navbar-menu">
             <div class="navbar-start">
-                <RouterLink :to="{ name: 'events' }" class="navbar-item">
+                <RouterLink :to="{ name: 'events' }" class="navbar-item" v-if="authStore.user.uid">
                     <strong>Events</strong>
                 </RouterLink>
-                <RouterLink :to="{ name: 'helpdesk' }" class="navbar-item">
+                <RouterLink :to="{ name: 'helpdesk' }" class="navbar-item" v-if="authStore.user.uid">
                     <strong>Help Desk</strong>
                 </RouterLink>
             </div>
             
             <div class="navbar-end">
-                <div class="navbar-item ">
+                <div class="navbar-item " v-if="!authStore.user.uid">
                     <div class="buttons">
                         <RouterLink :to="{ name: 'login' }" active-class="is-active" class="button is-dark">
                             <strong>Log in</strong>

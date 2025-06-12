@@ -2,7 +2,7 @@
     <div class="card">
         <header class="card-header">
             <p class="card-header-title">
-                {{ event.title }}
+                {{ event.date + " @ " + event.time + " - " + event.title}}
             </p>
             <button class="card-header-icon" aria-label="more options">
             <span class="icon">
@@ -13,9 +13,6 @@
         <div class="card-content">
             <div class="content">
                 {{ event.desc }}
-            </div>
-            <div class="content">
-                {{ event.date + " " + event.time }}
             </div>
         </div>
         <footer class="card-footer">

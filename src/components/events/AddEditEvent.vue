@@ -25,14 +25,14 @@
 
         <div class="field">
             <label class="label">Date & Time</label>
-            <div class="control">
+            <div class="control column mt-2 is-one-quarter">
                 <input class="input" 
                     type="date" 
                     placeholder="Date" 
                     :value="eventDate"
                     @input="$emit('update:eventDate', $event.target.value)">
             </div>
-            <div class="control">
+            <div class="control column mt-2 is-one-quarter">
                 <input class="input" 
                     type="time" 
                     placeholder="Time" 
