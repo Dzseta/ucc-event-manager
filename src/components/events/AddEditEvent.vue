@@ -1,7 +1,7 @@
 <template>
-    <div class="has-background-warning-dark my-4 p-4">
+    <div class="has-background-warning  box my-4 p-4">
         <div class="field">
-            <label class="label has-text-light">Title</label>
+            <label class="label">Title</label>
             <div class="control">
                 <input class="input" 
                     type="text" 
@@ -13,7 +13,7 @@
         </div>
 
         <div class="field">
-            <label class="label has-text-light">Description</label>
+            <label class="label">Description</label>
             <div class="control">
                 <textarea class="textarea" 
                     placeholder="Description" 
@@ -24,7 +24,7 @@
         </div>
 
         <div class="field">
-            <label class="label has-text-light">Date & Time</label>
+            <label class="label">Date & Time</label>
             <div class="control">
                 <input class="input" 
                     type="date" 

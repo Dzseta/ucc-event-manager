@@ -35,10 +35,10 @@
             <div class="navbar-end">
                     <div class="navbar-item ">
                     <div class="buttons">
-                        <RouterLink :to="{ name: 'register' }" active-class="is-active" class="button is-light">
+                        <RouterLink :to="{ name: 'register' }" active-class="is-active" class="button is-dark">
                             <strong>Register</strong>
                         </RouterLink>
-                        <RouterLink :to="{ name: 'login' }" active-class="is-active" class="button is-light">
+                        <RouterLink :to="{ name: 'login' }" active-class="is-active" class="button is-dark">
                             <strong>Log in</strong>
                         </RouterLink>
                     </div>

@@ -15,7 +15,7 @@
                 {{ event.desc }}
             </div>
             <div class="content">
-                {{ event.date }}
+                {{ event.date + " " + event.time }}
             </div>
         </div>
         <footer class="card-footer">

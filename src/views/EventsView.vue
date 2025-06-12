@@ -5,7 +5,7 @@
         v-model:eventTime="eventTime"
         ref="addEditEventRef">
         <template #button>
-                <button :disabled="!eventTitle || !eventDate || !eventTime" class="button is-link is-warning" @click.prevent="addEvent">
+                <button :disabled="!eventTitle || !eventDate || !eventTime" class="button is-link has-background-black" @click.prevent="addEvent">
                     Submit
                 </button>
         </template>
