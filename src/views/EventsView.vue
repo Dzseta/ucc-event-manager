@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-    import { ref } from 'vue';
+    import { onMounted, ref } from 'vue';
     import SingleEvent from '@/components/events/SingleEvent.vue';
     import { useEventStore } from '@/stores/EventStore';
     import { storeToRefs } from 'pinia';

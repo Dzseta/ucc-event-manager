@@ -1,18 +1,46 @@
 import { defineStore } from "pinia"
 import { computed, ref } from "vue";
+import { getDocs, collection, onSnapshot, setDoc, doc, addDoc, updateDoc, deleteDoc,
+    query, orderBy } from 'firebase/firestore';
+import { db } from '../firebase/firebase';
+import { useAuthStore } from './AuthStore';
 
 export const useEventStore = defineStore('eventStore', () => {
-    const events = ref([
-        {id: 'id1', userid: 'uid', title: 'title1', desc: 'Description', date: '2025-06-12', time: '12:00:00'},
-        {id: 'id2', userid: 'uid', title: 'title2', desc: 'Description 2', date: '2025-06-12', time: '14:00:00'}
-    ]);
+    const events = ref([]);
+    const eventsLoaded = ref(false);
+    const authStore = useAuthStore();
+    let eventsCollectionRef;
+    let eventsCollectionQuery;
+    let eventsSnapshot = null;
 
-    const getEventUseridById = computed(() => {
-        return (id) => {
-            return events.value.find((event) => event.id === id).userid;
-        };
-    });
+    const getEvents = async () => {
 
+        eventsCollectionRef = collection(db, 'users', authStore.user.uid, 'events');
+        eventsCollectionQuery = query(eventsCollectionRef, orderBy('date', 'desc'), orderBy('time', 'desc'));
+
+        eventsSnapshot = onSnapshot(eventsCollectionQuery, (querySnapshot) => {
+            let eventsData = [];
+            eventsLoaded.value = false;
+            querySnapshot.forEach((doc) => {
+                let event = {
+                    id: doc.id,
+                    title: doc.data().title,
+                    desc: doc.data().desc,
+                    date: doc.data().date,
+                    time: doc.data().time
+                };
+                eventsData.push(event);
+            });
+            events.value = eventsData;
+            eventsLoaded.value = true;
+        });
+    };
+
+    const clearEvents = () => {
+        events.value = [];
+        if (eventsSnapshot) eventsSnapshot();
+    };
+    
     const getEventTitleById = computed(() => {
         return (id) => {
             return events.value.find((event) => event.id === id).title;
@@ -37,30 +65,26 @@ export const useEventStore = defineStore('eventStore', () => {
         };
     });
 
-    const addEvent = (eventTitle, eventDesc, eventDate, eventTime) => {
-        const event = {
-            id: eventTitle,
-            userid: 'uid',
+    const addEvent = async (eventTitle, eventDesc, eventDate, eventTime) => {
+        await addDoc(eventsCollectionRef, {
             title: eventTitle,
             desc: eventDesc,
             date: eventDate,
             time: eventTime
-        };
-
-        events.value.unshift(event);
+        });
     };
 
-    const updateEvent = (id, eventUserid, eventTitle, eventDesc, eventDate, eventTime) => {
-        const index = events.value.findIndex((event) => event.id === id);
-        events.value[index].userid = eventUserid;
-        events.value[index].title = eventTitle;
-        events.value[index].desc = eventDesc;
-        events.value[index].date = eventDate;
-        events.value[index].time = eventTime;
+    const updateEvent = async (id, eventTitle, eventDesc, eventDate, eventTime) => {
+        await updateDoc(doc(eventsCollectionRef, id), {
+            title: eventTitle,
+            desc: eventDesc,
+            date: eventDate,
+            time: eventTime
+        });
     };
 
-    const deleteEvent = (idToDelete) => {
-        events.value = events.value.filter(event => event.id != idToDelete);
+    const deleteEvent = async (idToDelete) => {
+        await deleteDoc(doc(eventsCollectionRef, idToDelete));
     };
 
     return {
@@ -68,10 +92,12 @@ export const useEventStore = defineStore('eventStore', () => {
         addEvent,
         updateEvent,
         deleteEvent,
-        getEventUseridById,
+        getEvents,
         getEventTitleById,
         getEventDateById,
         getEventTimeById,
-        getEventDescById
+        getEventDescById,
+        eventsLoaded,
+        clearEvents
     };
 });

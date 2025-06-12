@@ -27,19 +27,20 @@
                 <RouterLink :to="{ name: 'helpdesk' }" class="navbar-item">
                     <strong>Help Desk</strong>
                 </RouterLink>
-                <RouterLink :to="{ name: 'reset-password' }" class="navbar-item">
-                    <strong>Reset Password</strong>
-                </RouterLink>
             </div>
             
             <div class="navbar-end">
-                    <div class="navbar-item ">
+                <div class="navbar-item ">
                     <div class="buttons">
-                        <RouterLink :to="{ name: 'register' }" active-class="is-active" class="button is-dark">
-                            <strong>Register</strong>
-                        </RouterLink>
                         <RouterLink :to="{ name: 'login' }" active-class="is-active" class="button is-dark">
                             <strong>Log in</strong>
+                        </RouterLink>
+                    </div>
+                </div>
+                <div class="navbar-item" v-if="authStore.user.uid">
+                    <div class="buttons">
+                        <RouterLink :to="{ name: 'login' }" active-class="is-active" class="button is-dark" @click.prevent="onLogout">
+                            <strong>Log out</strong>
                         </RouterLink>
                     </div>
                 </div>
@@ -49,16 +50,23 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue';
-  const showNavBarMenu = ref(false);
+    import { ref } from 'vue';
+    import { useAuthStore } from '../../stores/AuthStore';
+
+    const showNavBarMenu = ref(false);
+    const authStore = useAuthStore();
+
+    const onLogout = () => {
+        authStore.logoutUser();
+    };
 </script>
 
 <style scoped>
-  @media (max-width: 1000px) {
-    .navbar-menu {
-      position: absolute;
-      left: 0;
-      right: 0;
+    @media (max-width: 1000px) {
+        .navbar-menu {
+            position: absolute;
+            left: 0;
+            right: 0;
+        }
     }
-  }
 </style>
